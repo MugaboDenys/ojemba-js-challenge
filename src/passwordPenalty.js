@@ -17,8 +17,6 @@ export default function penaltyPoints(password = "") {
     let nOfOccurrence = 0;
     let points = 0;
 
-    
-  
     for (let i = 0; i < password.length; i++) {
       const char = password[i];
   
