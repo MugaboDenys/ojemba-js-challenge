@@ -7,18 +7,37 @@
  */
 export default function penaltyPoints(password = "") {
   
-  if (!password) 
+  if (!password) {
     return 0;
-
+  }  
+  
   if (typeof password !== "string") password = String(password);
 
-  let consec = 0;
-  let characterSequence = 0;
-  for (let i = 0; i <= password.length; i++) {
-    if (password[i] === password[i + 1]) {
-      consec += 1;
-      characterSequence += 1;
+    let prevOccur = '';
+    let nOfOccurrence = 0;
+    let points = 0;
+
+    for (let i = 0; i < password.length; i++) {
+      const char = password[i];
+  
+      if (char === prevOccur) {
+        nOfOccurrence++;
+      } else {
+        if (nOfOccurrence === 2) {
+          points++;
+        } else if (nOfOccurrence >= 3) {
+          points += 2;
+        } 
+  
+        prevOccur = char;
+        nOfOccurrence = 1;
+      }
     }
-  }
-  return characterSequence === 2 ? 1 : characterSequence >= 3 ? 2 : 0
+  
+    if (nOfOccurrence === 2) {
+      points++;
+    } else if (nOfOccurrence >= 3) {
+      points += 2;
+    } 
+    return points;
 }
